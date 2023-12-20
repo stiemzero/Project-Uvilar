@@ -1,0 +1,31 @@
+body{
+    font-family: 'Lato', arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 300;
+    background-color: beige !important;
+}
+
+h1{
+    text-align: center;
+    color:black;
+}
+
+li{
+    font-weight: 400;
+}
+
+span{
+    font-weight: 400;
+}
+
+table, td{
+    border-collapse:collapse;
+    text-align:left;
+    border: 1px solid #000000;
+}
+
+td{
+    padding-right: 5px;
+    padding-left: 5px;
+}
