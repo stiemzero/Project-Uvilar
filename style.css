@@ -29,11 +29,6 @@ thead {
   font-weight: bold;
 }
 
-td{
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
 #nationTable td:first-child{
     width:200px;
 }
