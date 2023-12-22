@@ -1,4 +1,3 @@
-<!-- #######  THIS IS A COMMENT - Visible only in the source editor #########-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,21 +5,37 @@
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
         <link href="style.css" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.js" type="text/javascript"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.js" type="text/javascript"></script>
         <title>Nations</title>
     </head>
     <body>
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a aria-controls="nav-home" aria-selected="true" class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-home" id="nav-home-tab" role="tab">Home</a>
-                <a aria-controls="nav-administration" aria-selected="false" class="nav-item nav-link" data-bs-toggle="tab" href="#nav-administration" id="nav-administration-tab" role="tab">Administration</a>
-                <a aria-controls="nav-statistics" aria-selected="false" class="nav-item nav-link" data-bs-toggle="tab" href="#nav-statistics" id="nav-statistics-tab" role="tab">Statistics</a>
-                <a aria-controls="nav-tribal-start" aria-selected="false" class="nav-item nav-link" data-bs-toggle="tab" href="#nav-tribal-start" id="nav-tribal-start-tab" role="tab">Tribal Starts</a>
-            </div>
-        </nav>
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a aria-controls="nav-home" aria-selected="true" class="nav-item nav-link active" data-bs-toggle="tab" href="#homepage" id="nav-homepage" role="tab">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Nations</a>
+                    <div class="dropdown-menu dropdown-menu-center">
+                        <a aria-controls="nav-nations-home" class=" dropdown-item" data-bs-toggle="tab" href="#nav-nation-home" id="nav-nation-home-tab" role="tab">Description</a>
+                        <a aria-controls="nav-administration" class="dropdown-item " data-bs-toggle="tab" href="#nav-administration" id="nav-administration-tab" role="tab">Administration</a>
+                        <a aria-controls="nav-statistics" class="dropdown-item " data-bs-toggle="tab" href="#nav-statistics" id="nav-statistics-tab" role="tab">Statistics</a>
+                        <a aria-controls="nav-tribal-start" class="dropdown-item " data-bs-toggle="tab" href="#nav-tribal-start" id="nav-tribal-start-tab" role="tab">Tribal Starts</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
         <div class="tab-content" id="nav-tabContent">
-            <div aria-labelledby="nav-home-tab" class="tab-pane show active" id="nav-home" role="tabpanel">
+
+            <div aria-labelledby="nav-homepage" class="tab-pane show active" id="homepage" role="tabpanel">
+                <div class="container">
+                    <h1 class="text-center">Project Uvilar</h1>
+                    <p>This is my new website hosted on GitHub Pages!</p>
+                </div>
+            </div>
+
+            <div aria-labelledby="nav-nation-home-tab" class="tab-pane show" id="nav-nation-home" role="tabpanel">
                 <div class="container">
                     <h1 class="text-center">Nations</h1>
                     <p>
@@ -36,11 +51,26 @@
                     <h1 class="text-center">Nation Administration</h1>
                     <p>This contains general info about your nation.</p>
                     <ul>
-                        <li><span class="text-decoration-underline">Nation name</span>: the name of your nation</li>
-                        <li><span class="text-decoration-underline">Leader name</span>: the name of your leader</li>
-                        <li><span class="text-decoration-underline">Nation type</span>: what form of nation it is. such as kingdom, tribe and others.</li>
-                        <li><span class="text-decoration-underline">Culture</span>: the culture your nation has</li>
-                        <li><span class="text-decoration-underline">Religion</span>: the primary religion of your nation</li>
+                        <li>
+                            <span class="text-decoration-underline">Nation name</span>
+                            : the name of your nation
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Leader name</span>
+                            : the name of your leader
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Nation type</span>
+                            : what form of nation it is. such as kingdom, tribe and others.
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Culture</span>
+                            : the culture your nation has
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Religion</span>
+                            : the primary religion of your nation
+                        </li>
                     </ul>
                     <h1 class="text-center">Nation Info</h1>
                     <p>
@@ -48,19 +78,33 @@
                         The higher amounts are the better.
                     </p>
                     <ul>
-                        <li><span class="text-decoration-underline">Balance</span>: the amount of money your nation possesses.</li>
-                        <li><span class="text-decoration-underline">Pop</span>: the amount of people living in your nation</li>
-                        <li><span class="text-decoration-underline">Cities</span>: the amount of cities in your nation</li>
-                        <li><span class="text-decoration-underline">Governing</span>: this shows how well your nation can govern itself. if it's low your nation loses stability</li>
+                        <li>
+                            <span class="text-decoration-underline">Balance</span>
+                            : the amount of money your nation possesses.
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Pop</span>
+                            : the amount of people living in your nation
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Cities</span>
+                            : the amount of cities in your nation
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Governing</span>
+                            : this shows how well your nation can govern itself. if it's low your nation loses stability
+                        </li>
                     </ul>
                     <p>Pop is split into two types</p>
                     <ul>
                         <li>
-                            <span class="text-decoration-underline">City pop</span>: These live in the cities and work more specialized jobs.<br>
+                            <span class="text-decoration-underline">City pop</span>
+                            : These live in the cities and work more specialized jobs.<br>
                             They have a smaller impact on the governing capacity;
                         </li>
                         <li>
-                            <span class="text-decoration-underline">Spread out pop</span>: These live in the country land.<br>
+                            <span class="text-decoration-underline">Spread out pop</span>
+                            : These live in the country land.<br>
                             They provide food and basic resources for the cities around them and have a larger impact on governing capacity
                         </li>
 
@@ -77,11 +121,13 @@
                     </p>
                     <ul>
                         <li>
-                            <span class="text-decoration-underline">Stability</span>: how well your country is doing.<br>
+                            <span class="text-decoration-underline">Stability</span>
+                            : how well your country is doing.<br>
                             The lower this is, the more likely a rebellion or civil war is.
                         </li>
                         <li>
-                            <span class="text-decoration-underline">War support</span>: people don't like being at war.<br>
+                            <span class="text-decoration-underline">War support</span>
+                            : people don't like being at war.<br>
                             This determines how much your nation's opinion of it is right now
                         </li>
                     </ul>
@@ -92,16 +138,31 @@
                         The first few numbers are:
                     </p>
                     <ul>
-                        <li><span class="text-decoration-underline">Taxation</span>: How much each pop gives the state per week</li>
-                        <li><span class="text-decoration-underline">Research</span>: How many research points you gain per week</li>
-                        <li><span class="text-decoration-underline">Civics points</span>: How many civic points you gain per week</li>
+                        <li>
+                            <span class="text-decoration-underline">Taxation</span>
+                            : How much each pop gives the state per week
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Research</span>
+                            : How many research points you gain per week
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">Civics points</span>
+                            : How many civic points you gain per week
+                        </li>
                     </ul>
                     <p>
                         Then the nation's resources follow. These will always be 2 rows.
                     </p>
                     <ul>
-                        <li><span class="text-decoration-underline">The first row</span>: How much is gained per week.</li>
-                        <li><span class="text-decoration-underline">The second row</span>: How much they have in total.</li>
+                        <li>
+                            <span class="text-decoration-underline">The first row</span>
+                            : How much is gained per week.
+                        </li>
+                        <li>
+                            <span class="text-decoration-underline">The second row</span>
+                            : How much they have in total.
+                        </li>
                     </ul>
                     <p>
                         After all that the districts follow.<br>
@@ -142,7 +203,9 @@
                         </tbody>
                     </table>
                     <p>
-                        Once you have decided on an idea you'll make a post in <span class="lead">#char-n-nation-creation</span>.<br>
+                        Once you have decided on an idea you'll make a post in
+                        <span class="lead">#char-n-nation-creation</span>
+                        .<br>
                         After that you'll have to wait to be vetted by a staff member.<br>
                         Your post will look somewhat like this (but with more details)
                     </p>
@@ -175,6 +238,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </body>
 </html>
