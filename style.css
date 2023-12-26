@@ -1,6 +1,6 @@
 body{
     font-family: 'Lato', arial, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
     background-color: beige !important;
 }
@@ -20,5 +20,9 @@ li{
 }
 
 #nationTable span:last-child{
-    padding-bottom: 0;
+    padding-bottom: 50;
+}
+
+.orange{
+    color: #ff5e00;
 }
