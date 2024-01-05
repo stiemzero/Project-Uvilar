@@ -1,0 +1,38 @@
+/* custom css for demo here */
+body{
+    font-family: 'Lato', arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background: #7DF9FF;
+}
+
+html, body{
+	padding:0;
+	margin:0;
+}
+#skilltree {
+	width: 100vw;
+	height: 100vh;
+	border: 0;
+    background: #ADF9FF;
+}
+#panel {
+	z-index: 100;
+	position:absolute;
+	top:0;
+	left:0;
+	padding:16px;
+	border : 1px solid lightgrey;
+}
+#popin{
+	z-index: 200;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:translate(-50% -50%);
+	border:1px solid #ccc;
+	padding:16px;
+}
+#popin:empty{
+	display:none;
+}
