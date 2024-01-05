@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="CSS/tree_style.css" rel="stylesheet" type="text/css"/>
+    <link href="CSS/techtree_default.css" rel="stylesheet" type="text/css"/>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.min.js"
+            integrity="sha512-ExZeVtDITZr2oSsWYa2oc/C4e8vKK3jgsIHfnNEo8id9rvW0p5NwLKO6nQYkpSZtbgmDb0lP8U2kmO6Tcn+ejQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type='text/javascript'></script>
+    <title>test</title>
+
+    <!-- loads tech tree into "tech-tree" div once ready -->
+    <script>
+            $.getScript( "http://d3js.org/d3.v3.min.js", function( data, textStatus, jqxhr ) {
+                $.getScript("/JS/tree_config.js", function(data, textStatus, jqxhr){
+                    $.getScript("/JS/techtree.js", function(data, textStatus, jqxhr){
+                        techtree.drawTree();
+                    });
+                });
+            });
+        </script>
+</head>
+<body>
+<div id='techTreeDiv'>
+    <script>
+        var redraw = function() {d3.select("svg").remove(); techtree.drawTree()};
+    </script>
+    <h3>resulting tech tree: </h3>
+    <div id='tech-tree'></div>
+</div>
+</body>
+</html>
