@@ -1,5 +1,7 @@
 (() => {
 	const lockedColor = "#ccc";
+	const treeDirection = "UD";
+	//const treeDirection = "LR";
 
 	/* DATASET */
 	let nodes = new vis.DataSet([
@@ -11,7 +13,7 @@
 		{ id: 5, value: 20, level: 2, label: "War tactics" },
 		{ id: 6, value: 20, level: 3, label: "Instruments" },
 		{ id: 7, value: 20, level: 3, label: "Writing" },
-		{ id: 8, value: 20, level: 3, label: "long term storage" },
+		{ id: 8, value: 20, level: 3, label: "Long term storage" },
 		{ id: 9, value: 20, level: 3, label: "Stronger clothing" },
 		{ id: 10, value: 20, level: 3, label: "Agriculture" },
 		{ id: 11, value: 20, level: 3, label: "Cooking" },
@@ -40,7 +42,7 @@
 		{ id: 34, value: 20, level: 5, label: "Pikes for reach" },
 		{ id: 35, value: 20, level: 5, label: "Ranged mastery" },
 	]
-	//.map(n => { n.label += " \n("+ n.id +")"; return n})
+	//.map(n => { n.label += " \n("+ n.id +")"; return n}) //Leave commented, makes it easier to see what node has which value
 	);
 
 
@@ -53,7 +55,6 @@
 		{ from: 1, to: 6, arrows: "to" },
 		{ from: 1, to: 7, arrows: "to" },
 		{ from: 1, to: 8, arrows: "to" },
-		{ from: 1, to: 9, arrows: "to" },
 		{ from: 1, to: 9, arrows: "to" },
 		{ from: 2, to: 10, arrows: "to" },
 		{ from: 2, to: 11, arrows: "to" },
@@ -87,7 +88,6 @@
 		{ from: 27, to: 35, arrows: "to" },
 	]);
 
-
 	/******************************************
 	        NO EDITING UNDERNEATH
 	******************************************/
@@ -97,90 +97,117 @@
 		nodes: nodes,
 		edges: edges
 	};
-	const options = {
-		interaction: {
-			selectConnectedEdges: true
-		},
+	var options = {
 		nodes: {
-			chosen: false,
 			shape: "dot",
-			size: 10,
 			color: lockedColor,
 			font: {
 				face: "Raleway, Helvetica, Arial",
 				size: 11,
 				color: "#666"
-			},
-			borderWidth: 1,
-		},
-		edges: {
-			color: lockedColor,
-			dashes: false,
-			arrows :{
-				to:{
-					scaleFactor: 0.5
-				}
 			}
 		},
 		layout: {
-			hierarchical: {
-				direction: "LR" //Left to right
-			}
-		}
+            hierarchical: {
+              direction: 'LR'
+            }
+          }
 	};
 	let network = new vis.Network(container, data, options);
 
 
+  const checkbox = document.getElementById('flexSwitchCheckDefault')
+
+    checkbox.addEventListener('change', (event) => {
+        if (event.currentTarget.checked) {
+           var options = {
+           		nodes: {
+           			shape: "dot",
+           			color: lockedColor,
+           			font: {
+           				face: "Raleway, Helvetica, Arial",
+           				size: 11,
+           				color: "#666"
+           			}
+           		},
+           		layout: {
+                       hierarchical: {
+                         direction: 'UD'
+                       }
+                     }
+           	};
+        }else {
+            var options = {
+            		nodes: {
+            			shape: "dot",
+            			color: lockedColor,
+            			font: {
+            				face: "Raleway, Helvetica, Arial",
+            				size: 11,
+            				color: "#666"
+            			}
+            		},
+            		layout: {
+                        hierarchical: {
+                          direction: 'LR'
+                        }
+                      }
+            	};
+        }
+        network = new vis.Network(container, data, options);
+    })
+
 const buildGraphDisplay = function() {
 
-		/* SUBTREE */
-		/* glitch subtree */
-		const getSubtree = nodeId => {
-			let childs = network.getConnectedNodes(nodeId, "from");
-			for (let i = 0; i < childs.length; i++) {
-				childs = childs.concat(network.getConnectedNodes(childs[i], "from"));
-			}
-			return childs;
-		};
 
-		/* glitch parentTree */
-		const getParentstree = nodeId => {
-			let parents = network.getConnectedNodes(nodeId, "to");
-			for (let i = 0; i < parents.length; i++) {
-				parents = parents.concat(network.getConnectedNodes(parents[i], "to"));
-			}
-			return parents;
-		};
+    /* SUBTREE */
+    /* glitch subtree */
+    const getSubtree = nodeId => {
+        let childs = network.getConnectedNodes(nodeId, "from");
+        for (let i = 0; i < childs.length; i++) {
+            childs = childs.concat(network.getConnectedNodes(childs[i], "from"));
+        }
+        return childs;
+    };
 
-		nodes.getIds().forEach(nodeId => {
-			let currNode = nodes.get(nodeId);
+    /* glitch parentTree */
+    const getParentstree = nodeId => {
+        let parents = network.getConnectedNodes(nodeId, "to");
+        for (let i = 0; i < parents.length; i++) {
+            parents = parents.concat(network.getConnectedNodes(parents[i], "to"));
+        }
+        return parents;
+    };
 
-			// updating nodes with subtree
-			// example using reduce
-			currNode.requiredSubtree = getSubtree(nodeId).reduce( (requiredNodes, id) => {
-				const childNode = nodes.get(id);
-				(childNode.selected !== true && typeof requiredNodes.find(o => o.id === childNode.id) === "undefined" && requiredNodes.push(childNode));
-				return requiredNodes;
-			}, []);
+    nodes.getIds().forEach(nodeId => {
+        let currNode = nodes.get(nodeId);
 
-			// updating nodes with parentspath
-			// example with forEach
-			let selectedParents = [];
-			getParentstree(nodeId).forEach(node => {
-				const parentNode = nodes.get(node);
-				(parentNode.selected === true && typeof selectedParents.find(o => o.id === parentNode.id) === "undefined" && selectedParents.push(parentNode));
-			});
-			currNode.selectedParents = selectedParents;
+        // updating nodes with subtree
+        // example using reduce
+        currNode.requiredSubtree = getSubtree(nodeId).reduce( (requiredNodes, id) => {
+            const childNode = nodes.get(id);
+            (childNode.selected !== true && typeof requiredNodes.find(o => o.id === childNode.id) === "undefined" && requiredNodes.push(childNode));
+            return requiredNodes;
+        }, []);
 
-			currNode.title = currNode.label;
+        // updating nodes with parentspath
+        // example with forEach
+        let selectedParents = [];
+        getParentstree(nodeId).forEach(node => {
+            const parentNode = nodes.get(node);
+            (parentNode.selected === true && typeof selectedParents.find(o => o.id === parentNode.id) === "undefined" && selectedParents.push(parentNode));
+        });
+        currNode.selectedParents = selectedParents;
 
-			if(currNode.text!=null){
-			currNode.title += ": "+currNode.text ;
-			}
+        currNode.title = currNode.label;
 
-			nodes.update(currNode);
-		});
-	};
+        if(currNode.text!=null){
+        currNode.title += ": "+currNode.text ;
+        }
+
+        nodes.update(currNode);
+    });
+};
 
 	/* EVENTS HANDLING */
 	/**
