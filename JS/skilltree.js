@@ -1,13 +1,11 @@
 (() => {
 	const lockedColor = "#ccc";
-	const treeDirection = "UD";
-	//const treeDirection = "LR";
 
 	/* DATASET */
 	let nodes = new vis.DataSet([
-		{ id: 0, value: 50, level: 1, label: "Dawn of Civilization", text:"Dit is flavour text" },
-		{ id: 1, value: 20, level: 2, label: "Pottery" },
-		{ id: 2, value: 20, level: 2, label: "Seed Planting" },
+		{ id: 0, value: 50, level: 1, label: "Dawn of Civilization", text:"Dit is flavour text", color:"red" },
+		{ id: 1, value: 20, level: 2, label: "Pottery", color: "cyan"},
+		{ id: 2, value: 20, level: 2, label: "Seed Planting", color:"#2DE35F" },
 		{ id: 3, value: 20, level: 2, label: "Wood working" },
 		{ id: 4, value: 20, level: 2, label: "Permanent Homage" },
 		{ id: 5, value: 20, level: 2, label: "War tactics" },
@@ -98,62 +96,39 @@
 		edges: edges
 	};
 	var options = {
-		nodes: {
-			shape: "dot",
-			color: lockedColor,
-			font: {
-				face: "Raleway, Helvetica, Arial",
-				size: 11,
-				color: "#666"
-			}
-		},
-		layout: {
+        height: '100%',
+        width: '100%',
+        interaction:{
+            dragNodes:false,
+            dragView: true,
+            },
+        nodes: {
+            color: lockedColor,
+            font: {
+                face: "Raleway, Helvetica, Arial",
+                size: 11,
+                color: "#666"
+            }
+        },
+        layout: {
             hierarchical: {
-              direction: 'LR'
+              direction: "UD"
             }
           }
-	};
+    };
 	let network = new vis.Network(container, data, options);
 
 
-  const checkbox = document.getElementById('flexSwitchCheckDefault')
-
+    const checkbox = document.getElementById('flexSwitchCheckDefault')
     checkbox.addEventListener('change', (event) => {
+        let techTreeDir="";
+
         if (event.currentTarget.checked) {
-           var options = {
-           		nodes: {
-           			shape: "dot",
-           			color: lockedColor,
-           			font: {
-           				face: "Raleway, Helvetica, Arial",
-           				size: 11,
-           				color: "#666"
-           			}
-           		},
-           		layout: {
-                       hierarchical: {
-                         direction: 'UD'
-                       }
-                     }
-           	};
+            techTreeDir= 'LR';
         }else {
-            var options = {
-            		nodes: {
-            			shape: "dot",
-            			color: lockedColor,
-            			font: {
-            				face: "Raleway, Helvetica, Arial",
-            				size: 11,
-            				color: "#666"
-            			}
-            		},
-            		layout: {
-                        hierarchical: {
-                          direction: 'LR'
-                        }
-                      }
-            	};
+            techTreeDir= 'UD';
         }
+        options.layout.hierarchical.direction=techTreeDir;
         network = new vis.Network(container, data, options);
     })
 
