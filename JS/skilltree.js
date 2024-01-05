@@ -172,7 +172,11 @@ const buildGraphDisplay = function() {
 			});
 			currNode.selectedParents = selectedParents;
 
-			currNode.title =  currNode.label +": "+currNode.text ;
+			currNode.title = currNode.label;
+
+			if(currNode.text!=null){
+			currNode.title += ": "+currNode.text ;
+			}
 
 			nodes.update(currNode);
 		});
