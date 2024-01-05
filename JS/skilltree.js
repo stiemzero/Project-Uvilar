@@ -1,11 +1,9 @@
 (() => {
 	const lockedColor = "#ccc";
-	const unlockedColor = "#def";
-	const selectedColor = "#33C3F0";
 
 	/* DATASET */
 	let nodes = new vis.DataSet([
-		{ id: 0, value: 50, level: 1, label: "Dawn of Civilization" },
+		{ id: 0, value: 50, level: 1, label: "Dawn of Civilization", text:"Dit is flavour text" },
 		{ id: 1, value: 20, level: 2, label: "Pottery" },
 		{ id: 2, value: 20, level: 2, label: "Seed Planting" },
 		{ id: 3, value: 20, level: 2, label: "Wood working" },
@@ -88,6 +86,12 @@
 		{ from: 27, to: 34, arrows: "to" },
 		{ from: 27, to: 35, arrows: "to" },
 	]);
+
+
+	/******************************************
+	        NO EDITING UNDERNEATH
+	******************************************/
+
 	const container = document.getElementById("skilltree");
 	const data = {
 		nodes: nodes,
@@ -125,4 +129,60 @@
 		}
 	};
 	let network = new vis.Network(container, data, options);
+
+
+const buildGraphDisplay = function() {
+
+		/* SUBTREE */
+		/* glitch subtree */
+		const getSubtree = nodeId => {
+			let childs = network.getConnectedNodes(nodeId, "from");
+			for (let i = 0; i < childs.length; i++) {
+				childs = childs.concat(network.getConnectedNodes(childs[i], "from"));
+			}
+			return childs;
+		};
+
+		/* glitch parentTree */
+		const getParentstree = nodeId => {
+			let parents = network.getConnectedNodes(nodeId, "to");
+			for (let i = 0; i < parents.length; i++) {
+				parents = parents.concat(network.getConnectedNodes(parents[i], "to"));
+			}
+			return parents;
+		};
+
+		nodes.getIds().forEach(nodeId => {
+			let currNode = nodes.get(nodeId);
+
+			// updating nodes with subtree
+			// example using reduce
+			currNode.requiredSubtree = getSubtree(nodeId).reduce( (requiredNodes, id) => {
+				const childNode = nodes.get(id);
+				(childNode.selected !== true && typeof requiredNodes.find(o => o.id === childNode.id) === "undefined" && requiredNodes.push(childNode));
+				return requiredNodes;
+			}, []);
+
+			// updating nodes with parentspath
+			// example with forEach
+			let selectedParents = [];
+			getParentstree(nodeId).forEach(node => {
+				const parentNode = nodes.get(node);
+				(parentNode.selected === true && typeof selectedParents.find(o => o.id === parentNode.id) === "undefined" && selectedParents.push(parentNode));
+			});
+			currNode.selectedParents = selectedParents;
+
+			currNode.title =  currNode.label +": "+currNode.text ;
+
+			nodes.update(currNode);
+		});
+	};
+
+	/* EVENTS HANDLING */
+	/**
+		init
+	**/
+	network.once("stabilized", () => {
+		buildGraphDisplay();
+	});
 })();
